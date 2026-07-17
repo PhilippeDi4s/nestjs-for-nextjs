@@ -6,13 +6,14 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "user@email.com",
+    "email": "userNovo@email.com",
     "password": "123456"
 }
 
 ### Read one user
 # @name readOneUser
 GET {{baseUrl}}/user/123
+Authorization: Bearer {{jwtToken}}
 
 ### Creatye user
 # @name createUser
@@ -20,7 +21,17 @@ POST  {{baseUrl}}/user
 Content-Type: application/json
 
 {
-    "name": "Júlia",
-    "email": "user@email.com",
+    "name": "Júlia Vicentini",
+    "email": "xuxu@email.com",
     "passwordHash": "123456"
+}
+
+### Update User
+# @name updtaeUser
+PATCH {{baseUrl}}/user/me
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+
 }
