@@ -1,8 +1,8 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
-  Param,
   Patch,
   Post,
   Req,
@@ -14,7 +14,6 @@ import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Request } from 'express';
 import type { AuthenticatedRequest } from 'src/auth/types/authenticated-request';
-import { CustomParseIntPipe } from 'src/commoun/pipes/custom-parse-int-pipe.pipe';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
@@ -27,19 +26,22 @@ export class UserController {
   ) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  findOne(
-    @Req() req: AuthenticatedRequest,
-    @Param('id', CustomParseIntPipe) id: number,
-  ) {
-    console.log(req.user.id);
-    console.log(req.user.email);
-    return `olá do controller do user #${id}`;
+  @Get('me')
+  async findOne(@Req() req: AuthenticatedRequest) {
+    const user = await this.userService.findOneByOrFail({ id: req.user.id });
+    return new UserResponseDto(user);
   }
 
   @Post()
   async create(@Body() dto: CreateUserDto) {
     const user = await this.userService.create(dto);
+    return new UserResponseDto(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('me')
+  async remove(@Req() req: AuthenticatedRequest) {
+    const user = await this.userService.remove(req.user.id);
     return new UserResponseDto(user);
   }
 
