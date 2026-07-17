@@ -1,19 +1,5 @@
 @baseUrl = http://localhost:3000
 @jwtToken = {{authLogin.response.body.accessToken}}
-### Auth Login
-# @name authLogin
-POST {{baseUrl}}/auth/login
-Content-Type: application/json
-
-{
-    "email": "userNovo@email.com",
-    "password": "123456"
-}
-
-### Read one user
-# @name readOneUser
-GET {{baseUrl}}/user/123
-Authorization: Bearer {{jwtToken}}
 
 ### Creatye user
 # @name createUser
@@ -26,6 +12,21 @@ Content-Type: application/json
     "passwordHash": "123456"
 }
 
+### Auth Login
+# @name authLogin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "xuxu@email.com",
+    "password": "123455"
+}
+
+### Read one user
+# @name readOneUser
+GET {{baseUrl}}/user/123
+Authorization: Bearer {{jwtToken}}
+
 ### Update User
 # @name updtaeUser
 PATCH {{baseUrl}}/user/me
@@ -33,5 +34,17 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
+    "name": "Júlia Atualizada",
+    "email": "newxuxu@email.com"
+}
 
+### Update User Password
+# @name updtaePaasword
+PATCH {{baseUrl}}/user/me/password
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+    "currentPasswordHash": "123455",
+    "newPasswordHash": "1234556"
 }
