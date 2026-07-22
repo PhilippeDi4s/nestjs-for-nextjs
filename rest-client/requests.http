@@ -33,7 +33,7 @@ Content-Type: application/json
 {
   "name": "{{userNameForTesting}}",
   "email": "{{userEmailForTesting}}",
-  "password": "{{userPasswordForTesting}}"
+  "passwordHash": "{{userPasswordForTesting}}"
 }
 
 ### Update user
@@ -78,8 +78,9 @@ Authorization: Bearer {{jwtToken}}
 
 {
   "title": "Título do post",
-  "excerpt": "Excerto",
-  "content": "Conteúdo"
+  "excerpt": "Excerto Excerto Excerto Excerto",
+  "content": "Conteúdo",
+  "coverImageUrl": "http://localhost:3000"
 }
 
 ### Read all post public

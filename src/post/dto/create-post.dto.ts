@@ -19,7 +19,10 @@ export class CreatePostDto {
   @IsNotEmpty({ message: 'Conteúdo não pode ficar vazio' })
   content: string;
 
-  @IsOptional() // Vai ser requerido no Next.js
-  @IsUrl({ require_tld: false }) // Top level domain proíbe localhost e IP
+  @IsOptional()
+  @IsUrl(
+    { require_tld: false },
+    { message: 'URL da imagem precisa ser uma URL vàlida' },
+  )
   coverImageUrl?: string;
 }
